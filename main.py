@@ -7,7 +7,7 @@ topic = "steam deck"
 
 url = f"https://newsapi.org/v2/everything?q={topic}&" \
       "from=2023-01-08&sortBy=publishedAt&" \
-      f"apiKey={api_key}"
+      f"apiKey={api_key}&language=en"
 
 # make request
 request = requests.get(url)
@@ -16,16 +16,15 @@ request = requests.get(url)
 content = request.json()
 
 # Access the article titles and descriptions
-msg = ""
-for article in content["articles"][:15]:
+msg = "Subject: News App \n"
+for article in content["articles"][:20]:
     if article['title'] is not None:
         msg += article['title'] + "\n"
         msg += article['description'] + "\n"
         msg += article['url'] + "\n" + "\n"
 
 
-message = f"Subject: Email News App \n {msg}"
-send_email(message)
+send_email(msg)
 
 
 
